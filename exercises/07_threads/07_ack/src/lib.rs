@@ -1,13 +1,20 @@
 use std::sync::mpsc::{Receiver, Sender};
-use crate::store::TicketStore;
+use crate::data::TicketDraft;
+use crate::store::{TicketId, TicketStore};
 
 pub mod data;
 pub mod store;
 
 // Refer to the tests to understand the expected schema.
 pub enum Command {
-    Insert { todo!() },
-    Get { todo!() }
+    Insert { 
+        draft: TicketDraft,
+        response_sender: Sender<TicketId>,
+    },
+    Get {
+        id: TicketId,
+        response_sender: Sender<TicketId>,
+    }
 }
 
 pub fn launch() -> Sender<Command> {

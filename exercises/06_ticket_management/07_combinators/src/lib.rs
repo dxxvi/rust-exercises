@@ -23,14 +23,23 @@ pub enum Status {
 
 impl TicketStore {
     pub fn new() -> Self {
-        Self {
-            tickets: Vec::new(),
-        }
+        Self { tickets: Vec::new() }
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
     }
+    
+    pub fn to_dos(&self) -> Vec<&Ticket> {
+        self.tickets.iter().filter(|ticket| ticket.status == Status::ToDo).collect()
+/*        let mut result: Vec<&Ticket> = Vec::with_capacity(self.tickets.len());
+        for ticket in &self.tickets {
+            if ticket.status == Status::ToDo {
+                result.push(ticket);
+            }
+        }
+        result
+*/    }
 }
 
 #[cfg(test)]

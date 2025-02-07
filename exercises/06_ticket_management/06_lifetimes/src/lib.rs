@@ -22,9 +22,7 @@ pub enum Status {
 
 impl TicketStore {
     pub fn new() -> Self {
-        Self {
-            tickets: Vec::new(),
-        }
+        Self { tickets: Vec::new() }
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
@@ -32,6 +30,14 @@ impl TicketStore {
     }
 
     pub fn iter(&self) -> std::slice::Iter<Ticket> {
+        self.tickets.iter()
+    }
+}
+impl<'a> IntoIterator for &'a TicketStore {
+    type Item = &'a Ticket;
+    type IntoIter = std::slice::Iter<'a, Ticket>;
+
+    fn into_iter(self) -> Self::IntoIter {
         self.tickets.iter()
     }
 }

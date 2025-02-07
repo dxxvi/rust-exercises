@@ -7,6 +7,30 @@ enum Status {
     InProgress,
     Done,
 }
+impl Status {
+    fn try_from_str<S: AsRef<str>>(s: S) -> Result<Self, String> {
+        match s.as_ref().to_lowercase().as_str() {
+            "todo" => Ok(Status::ToDo),
+            "inprogress" => Ok(Status::InProgress),
+            "done" => Ok(Status::Done),
+            _ => Err(format!("Invalid status: {}", s.as_ref())),
+        }
+    }
+}
+impl TryFrom<String> for Status {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        Status::try_from_str(value)
+    }
+}
+impl TryFrom<&str> for Status {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        Status::try_from_str(value)
+    }
+}
 
 #[cfg(test)]
 mod tests {

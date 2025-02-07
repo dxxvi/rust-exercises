@@ -12,10 +12,7 @@ pub struct TicketStore {
 
 impl TicketStore {
     pub fn new() -> Self {
-        Self {
-            tickets: BTreeMap::new(),
-            counter: 0,
-        }
+        Self { tickets: BTreeMap::new(), counter: 0 }
     }
 
     pub fn add_ticket(&mut self, ticket: TicketDraft) -> TicketId {

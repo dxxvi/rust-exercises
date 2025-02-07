@@ -12,6 +12,14 @@ use ticket_fields::{TicketDescription, TicketTitle};
 pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
+impl IntoIterator for TicketStore {
+    type Item = Ticket;
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.into_iter()
+    }
+}
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
@@ -29,9 +37,7 @@ pub enum Status {
 
 impl TicketStore {
     pub fn new() -> Self {
-        Self {
-            tickets: Vec::new(),
-        }
+        Self { tickets: Vec::new() }
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {

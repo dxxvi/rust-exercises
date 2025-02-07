@@ -26,13 +26,15 @@ pub enum Status {
 
 impl TicketStore {
     pub fn new() -> Self {
-        Self {
-            tickets: Vec::new(),
-        }
+        Self { tickets: Vec::new() }
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
+    }
+    
+    pub fn iter(&self) -> std::slice::Iter<Ticket> {
+        self.tickets.iter()
     }
 }
 

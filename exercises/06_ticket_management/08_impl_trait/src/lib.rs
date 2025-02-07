@@ -23,13 +23,15 @@ pub enum Status {
 
 impl TicketStore {
     pub fn new() -> Self {
-        Self {
-            tickets: Vec::new(),
-        }
+        Self { tickets: Vec::new() }
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
+    }
+    
+    pub fn in_progress(&self) -> impl Iterator<Item = &Ticket> {
+        self.tickets.iter().filter(|ticket| ticket.status == Status::InProgress)
     }
 }
 
